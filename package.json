@@ -1,0 +1,17 @@
+{
+  "name": "dom-basics",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "example"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:MiCkEyZzZ/dom-basics.git"
+  },
+  "keywords": [
+    "js"
+  ],
+  "author": "Mikhail Zhuravlev",
+  "license": "ISC"
+}
