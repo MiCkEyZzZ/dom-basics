@@ -86,10 +86,10 @@ const warriorsGames = [
 ]
 
 const getScoreLine = (game) => {
-    let { homeTeam, awayTeam } = game
+    var { homeTeam, awayTeam } = game
 
-    let { team: hTeam, points: hPoints } = homeTeam
-    let { team: aTeam, points: aPoints } = awayTeam
+    var { team: hTeam, points: hPoints } = homeTeam
+    var { team: aTeam, points: aPoints } = awayTeam
 
     var teamName = `${ aTeam } @ ${ hTeam }`
     var scoreLine
@@ -104,7 +104,7 @@ const getScoreLine = (game) => {
 }
 
 const isWinner = (game, targetTeam) => {
-    let { homeTeam, awayTeam } = game
+    var { homeTeam, awayTeam } = game
     var target = homeTeam.team === targetTeam ? homeTeam : awayTeam
 
     return target.isWinner
