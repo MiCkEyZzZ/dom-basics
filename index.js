@@ -85,30 +85,41 @@ const warriorsGames = [
     }
 ]
 
-// STEP 1
+const getScoreLine = (game) => {
+    let { homeTeam, awayTeam } = game
 
-const makeChart = (games) => {
+    let { team: hTeam, points: hPoints } = homeTeam
+    let { team: aTeam, points: aPoints } = awayTeam
+
+    var teamName = `${ aTeam } @ ${ hTeam }`
+    var scoreLine
+
+    if (aPoints > hPoints) {
+        scoreLine = `<b>${ aPoints }</b>-${ hPoints }`
+    } else {
+        scoreLine = `${ aPoints }-<b>${ hPoints }</b>`
+    }
+
+    return `${ teamName } ${ scoreLine }`
+}
+
+const isWinner = (game, targetTeam) => {
+    let { homeTeam, awayTeam } = game
+    var target = homeTeam.team === targetTeam ? homeTeam : awayTeam
+
+    return target.isWinner
+}
+
+const makeChart = (games, targetTeam) => {
     var ulParent = document.createElement('ul')
 
     for (let game of games) {
-        let { homeTeam, awayTeam } = game
         let gameLi = document.createElement('li')
-        let { team: hTeam, points: hPoints } = homeTeam
-        let { team: aTeam, points: aPoints } = awayTeam
+        gameLi.innerHTML = getScoreLine(game)
 
-        let teamName = `${ aTeam } @ ${ hTeam }`
-        let scoreLine
+        let warriors = isWinner(game, targetTeam)
+        gameLi.classList.add(warriors ? 'win' : 'loss')
 
-        if (aPoints > hPoints) {
-            scoreLine = `<b>${ aPoints }</b>-${ hPoints }`
-        } else {
-            scoreLine = `${ aPoints }-<b>${ hPoints }</b>`
-        }
-
-        let warriors = hTeam === 'УГМК' ? homeTeam : awayTeam
-        gameLi.classList.add(warriors.isWinner ? 'win' : 'loss')
-
-        gameLi.innerHTML = `${ teamName } ${ scoreLine }`
 
         ulParent.appendChild(gameLi)
     }
@@ -116,6 +127,10 @@ const makeChart = (games) => {
     return ulParent
 }
 
-const chart = makeChart(warriorsGames)
+const ugSection = document.querySelector('#ug')
+const csSection = document.querySelector('#cs')
+const ugChart = makeChart(warriorsGames, 'УГМК')
+const csChart = makeChart(warriorsGames, 'ПБК ЦСК')
 
-document.body.prepend(chart)
+ugSection.insertAdjacentElement('afterend', ugChart)
+csSection.insertAdjacentElement('afterend', csChart)
